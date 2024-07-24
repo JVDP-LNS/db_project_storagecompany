@@ -1,0 +1,24 @@
+#:kivy 2.0.0
+
+<MyRootLayout>:
+    cols: 2
+    GridLayout:
+    id: input_grid
+    size_hint_y: None
+    height: "56dp"
+    row_default_height: "56dp"
+    spacing: "10dp"
+    Label:
+    text: "Name:"
+    TextInput:
+    id: name_input
+    multiline: False
+    readonly: True
+    TextInput:
+    id: age_input
+    multiline: False
+    keyboard: 'number'
+    Button:
+    text: "Insert Record"
+    on_press: root.insert_record()
+    Button

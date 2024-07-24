@@ -1,0 +1,77 @@
+<TextInputPopup>:
+    title: ""
+    size_hint: None, None
+    size: 400, 400
+    auto_dismiss: False
+
+    BoxLayout:
+        orientation: "vertical"
+        TextInput:
+            id: txtinput
+            text: root.obj_text
+        Button:
+            size_hint: 1, 0.2
+            text: "Save Changes"
+            on_release:
+                print(app.root.old_val)
+
+                app.root.new_val = txtinput.text
+                print(app.root.new_val)
+                root.dismiss()
+        Button:
+            size_hint: 1, 0.2
+            text: "Cancel Changes"
+            on_release: root.dismiss()
+
+<SelectableButton>:
+    # Draw a background to indicate selection
+    canvas.before:
+        Color:
+            rgba: (.0, 0.9, .1, .3) if self.selected else (0, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_press:
+        app.root.old_val = self.text
+
+<Prim1Button>:
+    on_press: app.root.rootRecordSelected(self.text)
+
+<MEmployee>:
+
+<EmployeeInfoView>:
+    CommitButton:
+        text: "COMMIT"
+        size_hint: 1,0.25
+        on_press:
+            root.record_commit()
+        background_color: 0, 1, 0, 0.25
+
+
+<RootLayout>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 0.2
+        Rectangle:
+            # self here refers to the widget i.e FloatLayout
+            pos: self.pos
+            size: self.size
+
+    TableListLayout:
+        Button:
+            text: "Employees"
+            on_press:
+                root.currentTable = 0
+                root.RightLayout = root.rightLayouts[0]
+                root.MiddleLayout = root.middleLayouts[0]
+            background_color: 0.5, 0.5, 1, 0.25
+        Button:
+            text: "Branches"
+            on_press:
+                root.currentTable = 1
+                root.MiddleLayout = root.middleLayouts[1]
+            background_color: 0.5, 0.5, 1, 0.25
+        Button:
+            text: "ConsoleProcedure"
+            on_press:
+                root.consoleProcedure();
